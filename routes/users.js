@@ -6,22 +6,15 @@ var knex = require('../db/knex')
 var saltRounds = 10;
 
 router.post('/signin', function(req, res, next){
-	knex('my_user').where('agentName', req.body.agentId)
+	db.signIn(req.body)
 	.then(agentInfo =>{
-		bcrypt.compare(req.body.password, agentInfo[0].password, function(err, response) { if (response === true){
-			res.render('assignment')
-		} else {
-			res.render('index', { title: 'gClassified', message: 'Incorrect login. Contents will self destruct' });
-		}
-		}) 
+		authLogin(req.body, agentInfo)
 });
 })
 
 router.post('/signup', function(req,res,next){
-  //Use bcrypt to Sign Up
 	bcrypt.genSalt(saltRounds, function(err, salt) {
 	    bcrypt.hash(req.body.password, salt, function(err, hash) {
-				// Store hash in your password DB.
 				let newUser = {
 					agentName: req.body.agentName,
 					password: hash}
