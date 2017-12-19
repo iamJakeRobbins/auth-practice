@@ -13,8 +13,7 @@ router.post('/signin', function(req, res, next){
 })
 
 router.post('/signup', function(req,res,next){
-	bcrypt.genSalt(saltRounds, function(err, salt) {
-	    bcrypt.hash(req.body.password, salt, function(err, hash) {
+bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
 				let newUser = {
 					agentName: req.body.agentName,
 					password: hash}
@@ -27,8 +26,7 @@ router.post('/signup', function(req,res,next){
 						res.render('index', { title: 'gClassified', message: 'Sign Up Successful' })
 					}
 				})
-	    });
-	});
+	    })
 })
 
 module.exports = router
