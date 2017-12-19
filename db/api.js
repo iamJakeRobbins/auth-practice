@@ -14,7 +14,7 @@ module.exports = {
 		})
 	},
 
-  signUp: function() {
-		return knex(my_user)
+  signUp: function(newUser) {
+		return knex('my_user').insert(newUser, 'id')
   }
 }
