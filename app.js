@@ -4,6 +4,8 @@ var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
+var cookieSession = require('cookie-session');
+
 
 var index = require('./routes/index')
 var users = require('./routes/users')
@@ -21,6 +23,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(cookieSession({
+  name: 'auth_cookie',
+  keys: ['asldfalsdkflasdkf'],
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000}))
 
 app.use('/', index)
 app.use('/users', users)
