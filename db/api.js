@@ -13,7 +13,8 @@ var bcrypt = require('bcrypt')
 	}
 
 	function authLogin(userInput, agentInfo,req,res){
-		bcrypt.compare(userInput.password, agentInfo[0].password, function(err, response){ if (response === true){
+		bcrypt.compare(userInput.password, agentInfo[0].password, function(err, response){
+			if (response === true){
 			assign_cookie(agentInfo,req)
 			res.render('assignment')
 		} else {
