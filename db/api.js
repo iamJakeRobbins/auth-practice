@@ -16,5 +16,13 @@ module.exports = {
 
   signUp: function(newUser) {
 		return knex('my_user').insert(newUser, 'id')
-  }
+  },
+
+	userCreation(agent){
+		if (agent[0].password === req.body.password) {
+			res.render('index', { title: 'gClassified', message: 'Password Must Be Hashed. Government Secrets are at Stake!' })
+		} else {
+			res.render('index', { title: 'gClassified', message: 'Sign Up Successful' })
+		}
+	}
 }
