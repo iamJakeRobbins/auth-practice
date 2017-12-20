@@ -5,9 +5,9 @@ var bcrypt = require('bcrypt')
 var saltRounds = 10;
 
 router.post('/signin', function(req, res, next){
-	db.signIn(req.body)
+	db.signIn(req.body, req, res)
 	.then(agentInfo =>{
-		authLogin(req.body, agentInfo)
+		db.authLogin(req.body, agentInfo, req, res)
 });
 })
 
@@ -18,7 +18,7 @@ router.post('/signup', function(req,res,next){
 			password: hash}
 		db.signUp(newUser)
 			.then(function(agent){
-				userCreation(agent)
+				db.userCreation(agent)
 			})
 		})
 })
